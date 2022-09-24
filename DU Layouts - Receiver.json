@@ -1,0 +1,137 @@
+{
+    "slots": {
+        "0": {
+            "name": "receiver",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "1": {
+            "name": "screen",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "2": {
+            "name": "slot3",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "3": {
+            "name": "slot4",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "4": {
+            "name": "slot5",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "5": {
+            "name": "slot6",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "6": {
+            "name": "slot7",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "7": {
+            "name": "slot8",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "8": {
+            "name": "slot9",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "9": {
+            "name": "slot10",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-1": {
+            "name": "unit",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-2": {
+            "name": "system",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-3": {
+            "name": "library",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        }
+    },
+    "handlers": [
+        {
+            "code": "system.print(\"triggered\")\n\nif channel == \"ChunkCount\" then\n    ChunkCount = tonumber(message);\n    Received = \"\";\n    CurrentChunk = 0;\nend\n\nif (channel == \"ShipParts\" and ChunkCount > 0) then\n    CurrentChunk = CurrentChunk + 1;\n    system.print(tostring(CurrentChunk));\n    Received = Received .. message;\nend",
+            "filter": {
+                "args": [
+                    {
+                        "variable": "*"
+                    },
+                    {
+                        "variable": "*"
+                    }
+                ],
+                "signature": "receive(channel,message)",
+                "slotKey": "0"
+            },
+            "key": "0"
+        },
+        {
+            "code": "ChunkCount = 0;\nunit.setTimer(\"Update\",1);",
+            "filter": {
+                "args": [],
+                "signature": "start()",
+                "slotKey": "-1"
+            },
+            "key": "1"
+        },
+        {
+            "code": "if CurrentChunk == ChunkCount then\n    FinalPayload = Received;\n    screen.setCenteredText(FinalPayload);\n    ChunkCount = 0;\n    unit.stopTimer(\"Update\");\nend\n\n--system.print(\"Ticked\");\n--system.print(CurrentChunk);\n--system.print(ChunkCount);\n",
+            "filter": {
+                "args": [
+                    {
+                        "value": "Update"
+                    }
+                ],
+                "signature": "tick(timerId)",
+                "slotKey": "-1"
+            },
+            "key": "2"
+        }
+    ],
+    "methods": [],
+    "events": []
+}

@@ -1,0 +1,121 @@
+{
+    "slots": {
+        "0": {
+            "name": "emitter",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "1": {
+            "name": "slot2",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "2": {
+            "name": "slot3",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "3": {
+            "name": "slot4",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "4": {
+            "name": "slot5",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "5": {
+            "name": "slot6",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "6": {
+            "name": "slot7",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "7": {
+            "name": "slot8",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "8": {
+            "name": "slot9",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "9": {
+            "name": "slot10",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-1": {
+            "name": "unit",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-2": {
+            "name": "system",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-3": {
+            "name": "library",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        }
+    },
+    "handlers": [
+        {
+            "code": "Message = \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tincidunt est augue, non dignissim neque interdum bibendum. Pellentesque ultricies imperdiet tempus. Aliquam sit amet ipsum a orci rhoncus molestie. Morbi nec venenatis diam, et auctor arcu. Nulla ac ex fermentum, feugiat massa sit amet, faucibus ligula. Donec et sollicitudin ante. In dignissim vitae metus sed dignissim. Sed ac urna ac urna aliquam rhoncus. Proin nec dui eget velit feugiat vulputate vel sit amet nisi. Mauris eros urna, pulvinar ut sem id, varius aliquet lectus. Nunc vehicula elit et dolor vehicula consectetur. Maecenas at facilisis eros, ac rhoncus diam. Morbi eget elit eget enim congue fringilla. Suspendisse ultricies turpis urna, nec dignissim ipsum tristique et. Duis hendrerit eleifend leo et tincidunt. Sed id facilisis metus, congue lobortis lectus. Nulla facilisi. Nam id neque ac justo posuere sodales ac eu lorem. Integer tempor sed lacus sit amet varius. Curabitur semper ante sit amet metus blandit ultricies. Sed sed tincidunt tellus. Mauris elit odio, eleifend sed eleifend id, pellentesque eu erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec pharetra tellus nec ligula cursus, sed imperdiet nunc placerat. Cras id urna a nunc sollicitudin semper. Quisque posuere.\";\n\nChunkCount = math.ceil(Message:len() / 500);\n\nemitter.send(\"ChunkCount\",tostring(ChunkCount));\n\nChunkIndex = 0;\nunit.setTimer(\"Update\",0.5);\n",
+            "filter": {
+                "args": [],
+                "signature": "start()",
+                "slotKey": "-1"
+            },
+            "key": "0"
+        },
+        {
+            "code": "ChunkIndex = ChunkIndex + 1;\nCurrentChunk = Message:sub((ChunkIndex-1)*500 + 1, ChunkIndex*500);\nemitter.send(\"ShipParts\",CurrentChunk);\nif ChunkIndex == ChunkCount then\n    unit.stopTimer(\"Update\");\nend\n\n\n",
+            "filter": {
+                "args": [
+                    {
+                        "value": "Update"
+                    }
+                ],
+                "signature": "tick(timerId)",
+                "slotKey": "-1"
+            },
+            "key": "1"
+        }
+    ],
+    "methods": [],
+    "events": []
+}
